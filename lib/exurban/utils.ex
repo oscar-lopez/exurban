@@ -12,7 +12,8 @@ defmodule ExUrban.Utils do
 
     case res do
       {:ok, %HTTPoison.Response{status_code: ^status, body: body}} -> {:ok, body}
-      {:error, %HTTPoison.Error{reason: reason}}                  -> {:fail, reason}
+      {:ok, %HTTPoison.Response{status_code: _, body: body}}       -> {:fail, body}
+      {:error, %HTTPoison.Error{reason: reason}}                   -> {:fail, reason}
     end
 
   end
