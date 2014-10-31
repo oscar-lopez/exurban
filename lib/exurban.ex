@@ -2,12 +2,6 @@ defmodule ExUrban do
   use HTTPoison.Base
   use Jazz
 
-  defmodule Push do
-    defstruct audience: %{},
-              notification: %{},
-              device_types: []
-  end
-
   @moduledoc """
   Simple wrapper for Urban Airship. Right now, you can use the basic `%ExUrban.Push{}`
   struct for sending a push. You can use the same format as the Urban Airship REST API.
@@ -55,25 +49,6 @@ defmodule ExUrban do
         json = Enum.map json, fn({k, v}) -> {String.to_atom(k), v} end
         json
     end
-  end
-
-  @doc """
-  Builds and sends a query to Urban Airship.
-  """
-  def query(endpoint, body) do
-    res = ExUrban.post(endpoint, JSON.encode!(body), post_headers, [hackney: make_auth])
-    case res do
-      {:ok, %HTTPoison.Response{status_code: 202, body: body}} -> {:ok, body}
-      {:ok, %HTTPoison.Response{status_code: _, body: body}}   -> {:fail, body}
-      {:error, %HTTPoison.Error{reason: reason}}               -> {:fail, reason}
-    end
-  end
-
-  @doc """
-  Sends a push message to Urban Airship.
-  """
-  def push(body, opts \\ {}) do
-    query("push", body)
   end
 
   def make_auth do
