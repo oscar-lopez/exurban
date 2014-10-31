@@ -48,9 +48,13 @@ defmodule ExUrban do
       [field: "value"]
   """
   def process_response_body(body) do
-    json = JSON.decode! to_string(body)
-    json = Enum.map json, fn({k, v}) -> {String.to_atom(k), v} end
-    json
+    case String.length body do
+      0 -> %{status: :deleted} # Body is empty when replying to a DELETE request
+      _ ->
+        json = JSON.decode! to_string(body)
+        json = Enum.map json, fn({k, v}) -> {String.to_atom(k), v} end
+        json
+    end
   end
 
   @doc """
@@ -72,14 +76,11 @@ defmodule ExUrban do
     query("push", body)
   end
 
-  #####
-  # Private
-
-  defp make_auth do
+  def make_auth do
     [basic_auth: {@ua_key, @ua_master}]
   end
 
-  defp post_headers do
+  def post_headers do
     [{"Accept", "application/vnd.urbanairship+json; version=#{@ua_version};"},
      {"Content-Type", "application/json"}]
   end
