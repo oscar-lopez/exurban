@@ -76,14 +76,11 @@ defmodule ExUrban do
     query("push", body)
   end
 
-  #####
-  # Private
-
-  defp make_auth do
+  def make_auth do
     [basic_auth: {@ua_key, @ua_master}]
   end
 
-  defp post_headers do
+  def post_headers do
     [{"Accept", "application/vnd.urbanairship+json; version=#{@ua_version};"},
      {"Content-Type", "application/json"}]
   end
