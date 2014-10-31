@@ -1,12 +1,10 @@
 defmodule ExUrban.Schedules do
-  use Jazz
-
   alias ExUrban.Utils
 
   defmodule Schedule do
     defstruct schedule: %{scheduled_time: ""},
               name: "",
-              push: %ExUrban.Push{}
+              push: %ExUrban.Pushes.Push{}
   end
 
   def schedule(schedule) do
