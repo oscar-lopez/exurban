@@ -24,10 +24,6 @@ defmodule ExUrbanTest.Schedules do
   end
 
   test "can update a scheduled action", %{schedules: [s], pushes: [p]} do
-    # p = %{p| audience: "all",
-    #       device_types: ["android"],
-    #       notification: %{android: %{extra: %{json: "test"}}}}
-
     {:ok, resp} = ExUrban.Schedules.list
     Enum.map resp[:schedules], fn schedule ->
       schedule_uri = get_schedule_uri schedule
