@@ -30,6 +30,13 @@ defmodule ExUrban.Reports do
   end
 
   @doc """
+  Returns a listing of all pushes given a start and end date.
+  """
+  def list(start_date, end_date, limit \\ 10) do
+    Utils.query :get, 200, "reports/responses/list?start=#{start_date}&end=#{end_date}&limit=#{limit}"
+  end
+
+  @doc """
   Returns the default time series data with an hourly precision of 12 hours.
   """
   def per_series(push_id) do
