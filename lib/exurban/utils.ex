@@ -4,7 +4,7 @@ defmodule ExUrban.Utils do
   @timeout Application.get_env(:urban, :ua_timeout)
 
   def query(method, status, endpoint, object \\ %{}) do
-    opts = [hackney: ExUrban.make_auth, timeout: @timeout]
+    opts = [{:hackney, ExUrban.make_auth}, {:timeout, @timeout}]
     res = case method do
       :get    -> ExUrban.get endpoint, ExUrban.post_headers, opts
       :post   -> ExUrban.post endpoint, JSON.encode!(object), ExUrban.post_headers, opts
