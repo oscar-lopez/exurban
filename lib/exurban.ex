@@ -45,9 +45,14 @@ defmodule ExUrban do
     case String.length body do
       0 -> %{status: :deleted} # Body is empty when replying to a DELETE request
       _ ->
-        json = JSON.decode! to_string(body)
-        json = Enum.map json, fn({k, v}) -> {String.to_atom(k), v} end
-        json
+          try do
+            json = JSON.decode! to_string(body)
+            json = Enum.map json, fn({k, v}) -> {String.to_atom(k), v} end
+            json
+          rescue
+            IO.inspect exception
+            exception -> %{status: [error: exception]}
+          end
     end
   end
 
