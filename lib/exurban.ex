@@ -50,9 +50,7 @@ defmodule ExUrban do
             json = Enum.map json, fn({k, v}) -> {String.to_atom(k), v} end
             json
           rescue
-              exception ->
-            IO.inspect exception
-            exception -> %{status: [error: exception]}
+            exception -> %{status: [error: :bad_parse]}
           end
     end
   end
