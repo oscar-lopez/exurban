@@ -8,7 +8,7 @@ defmodule ExUrban.Utils do
     opts = [{:hackney, ExUrban.make_auth}, {:timeout, @timeout}]
 
     # TODO: delete this logger
-    Logger.error("timestamp: #{:calendar.now_to_universal_time(:os.timestamp())}")
+    Logger.error("--------------------------------------------------------------")
     Logger.error("endpoint : #{endpoint}")
     Logger.error("headers  : #{ExUrban.post_headers}")
     Logger.error("opts     : #{opts}")
