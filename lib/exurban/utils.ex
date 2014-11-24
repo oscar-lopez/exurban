@@ -1,5 +1,5 @@
 defmodule ExUrban.Utils do
-  require Logger
+#  require Logger
   use Jazz
 
   @timeout Application.get_env(:urban, :ua_timeout)
@@ -9,9 +9,6 @@ defmodule ExUrban.Utils do
 
     # TODO: delete this logger
     Logger.error("--------------------------------------------------------------")
-    Logger.error("endpoint : #{endpoint}")
-    Logger.error("headers  : #{ExUrban.post_headers}")
-    Logger.error("opts     : #{opts}")
     Logger.error("message  : #{JSON.encode!(object)}")
     Logger.error("--------------------------------------------------------------")
 
