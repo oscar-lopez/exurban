@@ -1,10 +1,20 @@
 defmodule ExUrban.Utils do
+  require Logger
   use Jazz
 
   @timeout Application.get_env(:urban, :ua_timeout)
 
   def query(method, status, endpoint, object \\ %{}) do
     opts = [{:hackney, ExUrban.make_auth}, {:timeout, @timeout}]
+
+    # TODO: delete this logger
+    Logger.error("timestamp: #{:calendar.now_to_universal_time(:os.timestamp())}")
+    Logger.error("endpoint : #{endpoint}")
+    Logger.error("headers  : #{ExUrban.post_headers}")
+    Logger.error("opts     : #{opts}")
+    Logger.error("message  : #{JSON.encode!(object)}")
+    Logger.error("--------------------------------------------------------------")
+
     res = case method do
       :get    -> ExUrban.get endpoint, ExUrban.post_headers, opts
       :post   -> ExUrban.post endpoint, JSON.encode!(object), ExUrban.post_headers, opts
