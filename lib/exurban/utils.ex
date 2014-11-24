@@ -1,5 +1,5 @@
 defmodule ExUrban.Utils do
-#  require Logger
+  require Logger
   use Jazz
 
   @timeout Application.get_env(:urban, :ua_timeout)
