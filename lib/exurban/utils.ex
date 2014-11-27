@@ -17,11 +17,16 @@ defmodule ExUrban.Utils do
 
     case res do
       {:ok, %HTTPoison.Response{status_code: ^status, body: body}} -> {:ok, body}
-      {:ok, %HTTPoison.Response{status_code: status, body: body}}       ->
-        Logger.error(" (1) Error with body : '" <> to_string(body) <> "' and status: " <> to_string(status))
+      {:ok, %HTTPoison.Response{status_code: status, body: body}}  ->
+        Logger.error(" (1) ++++++++++++++++++++++++++++++ ")
+        IO.inspect body
+        IO.inspect status
+        Logger.error(" (1) ++++++++++++++++++++++++++++++ ")
         {:fail, body}
-      {:error, %HTTPoison.Error{reason: reason}}                   ->
-        Logger.error(" (2) Error with reason : '" <> to_string(reason) <> "'")
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        Logger.error(" (2) ++++++++++++++++++++++++++++++ ")
+        IO.inspect reason
+        Logger.error(" (2) ++++++++++++++++++++++++++++++ ")
         {:fail, [error: reason]}
     end
 

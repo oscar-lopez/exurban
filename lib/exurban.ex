@@ -52,7 +52,10 @@ defmodule ExUrban do
             json
           rescue
             exception ->
-              Logger.error(" (3) Bad parse : '" <> to_string(body) <> "' with error: #{exception.message}")
+              Logger.error(" (3) ++++++++++++++++++++++++++++++ ")
+              IO.inspect body
+              IO.inspect exception.message
+              Logger.error(" (3) ++++++++++++++++++++++++++++++ ")
               %{status: [error: :bad_parse]}
           end
     end
