@@ -1,6 +1,7 @@
 defmodule ExUrban do
   use HTTPoison.Base
   use Jazz
+  require Logger
 
   @moduledoc """
   Simple wrapper for Urban Airship. Right now, you can use the basic `%ExUrban.Push{}`
@@ -50,7 +51,9 @@ defmodule ExUrban do
             json = Enum.map json, fn({k, v}) -> {String.to_atom(k), v} end
             json
           rescue
-            exception -> %{status: [error: :bad_parse]}
+            exception ->
+              Logger.error(" (3) Bad parse : '" <> to_string(body) <> "' with error: #{exception.message}")
+              %{status: [error: :bad_parse]}
           end
     end
   end

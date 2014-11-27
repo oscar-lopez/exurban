@@ -1,5 +1,6 @@
 defmodule ExUrban.Utils do
   use Jazz
+  require Logger
 
   @timeout Application.get_env(:urban, :ua_timeout)
 
@@ -16,8 +17,12 @@ defmodule ExUrban.Utils do
 
     case res do
       {:ok, %HTTPoison.Response{status_code: ^status, body: body}} -> {:ok, body}
-      {:ok, %HTTPoison.Response{status_code: _, body: body}}       -> {:fail, body}
-      {:error, %HTTPoison.Error{reason: reason}}                   -> {:fail, [error: reason]}
+      {:ok, %HTTPoison.Response{status_code: status, body: body}}       ->
+        Logger.error(" (1) Error with body : '" <> to_string(body) <> "' and status: " <> to_string(status))
+        {:fail, body}
+      {:error, %HTTPoison.Error{reason: reason}}                   ->
+        Logger.error(" (2) Error with reason : '" <> to_string(reason) <> "'")
+        {:fail, [error: reason]}
     end
 
   end
