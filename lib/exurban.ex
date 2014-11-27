@@ -54,7 +54,7 @@ defmodule ExUrban do
             exception ->
               Logger.error(" (3) ++++++++++++++++++++++++++++++ ")
               IO.inspect body
-              IO.inspect exception.message
+              IO.inspect exception
               Logger.error(" (3) ++++++++++++++++++++++++++++++ ")
               %{status: [error: :bad_parse]}
           end
